@@ -1,0 +1,13 @@
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.webp
+*.svg
+
+dataset/train/*
+dataset/validation/*
+dataset/test/*
+frames/*  
