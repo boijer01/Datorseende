@@ -10,7 +10,12 @@
 dataset/train/*
 dataset/validation/*
 dataset/test/*
-frames/*  
+frames/*
+datasets/*  
+ski.mp4
+train_yolo/runs/detect/*
+train_yolo/yolov8n.pt
+train_yolo/yolo11n.pt
 organize_dataset/all_images/labels/00498100-Screenshot_2025-03-02_135022.txt
 organize_dataset/all_images/labels/00510b77-person_20250228-094427.txt
 organize_dataset/all_images/labels/00850c66-th-360103632.txt

@@ -1,0 +1,7 @@
+path: ./SkierSnowboarderDataset
+train: images
+val: images  # Ideally, you'd separate train/val sets, but for initial simplicity this is acceptable
+
+names:
+  0: skier
+  1: snowboarder
