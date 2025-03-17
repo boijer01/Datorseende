@@ -21,7 +21,7 @@ frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
 #Skapa detection-zonen, med vår ski.mp4 video så borde den ligga på rätt ställe
-detection_zone = (frame_width - 300, 300, frame_width - 100, frame_height - 50)
+detection_zone = (5, frame_height - 200, frame_width - 5, frame_height - 50)
 
 while cap.isOpened():
     ret, frame = cap.read()
