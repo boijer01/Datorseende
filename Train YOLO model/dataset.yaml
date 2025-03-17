@@ -1,0 +1,5 @@
+train: G:\Users\Simon\Desktop\PROGRAMMERING\Datorseende\Train YOLO model\dataset\train\images # Mapp för träningsbilder
+val: G:\Users\Simon\Desktop\PROGRAMMERING\Datorseende\Train YOLO model\dataset\val\images     # Mapp för valideringsbilder
+
+nc: 2  # Antal klasser
+names: ['skier', 'snowboarder'] 
