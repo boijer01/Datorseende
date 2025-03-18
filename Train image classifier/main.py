@@ -9,7 +9,6 @@ from sklearn.model_selection import train_test_split
 #Bild storlek
 IMG_WIDTH, IMG_HEIGHT = 224, 224
 
-
 #Läser in annoteringsfiler och matchar dem med bilder
 def load_annotations(labels_dir, dataset_dir):
     annotations = []
@@ -27,7 +26,6 @@ def load_annotations(labels_dir, dataset_dir):
                             label = "snowboard" if parts[0] == "0" else "skidor" if parts[0] == "1" else parts[0]
                             annotations.append((img_path, label, *map(float, parts[1:])))
     return annotations
-
 
 #beskär och skalar bilder baserat på annoteringar
 def process_data(annotations):
@@ -48,9 +46,8 @@ def process_data(annotations):
     return np.array(imgs), np.array(labs)
 
 
-#Läser in och normaliserar bilder
 #Kollar igenom images dataset och dens labels
-annotations = load_annotations(r"../NEW SPLIT SYSTEM/labels", r"../NEW SPLIT SYSTEM/dataset") #Ändra denna så det matchar vart du sparat
+annotations = load_annotations(r"../NEW SPLIT SYSTEM/labels", r"../NEW SPLIT SYSTEM/dataset") #Ändra denna så det matchar vart du sparat dataset
 X, y = process_data(annotations)
 
 

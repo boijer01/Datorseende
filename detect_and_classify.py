@@ -3,8 +3,8 @@ import numpy as np
 from ultralytics import YOLO
 from tensorflow.keras.models import load_model
 
-yolo_model = YOLO('train_yolo/runs/detect/train4/weights/best.pt')
-classifier = load_model('dataset/snowboard_skidor_model.keras')
+yolo_model = YOLO('./best.pt')
+classifier = load_model('./snowboard_skidor_model.keras')
 
 class_labels = ['skier', 'snowboarder']
 video_path = 'ski.mp4'
