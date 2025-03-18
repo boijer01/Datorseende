@@ -4,7 +4,7 @@ from ultralytics import YOLO
 from tensorflow.keras.models import load_model
 
 #alla paths, se till att de är rätt c:
-yolo_model = YOLO('./best.pt')
+yolo_model = YOLO('./best_old.pt')
 classifier = load_model('snowboard_skidor_model.keras')
 video_path = 'ski.mp4'
 
