@@ -93,7 +93,7 @@ def main():
     #hur många bilder den ska crawla
     
     google_max = 100 
-    bing_max = 0  #0 atm för vi fick ganska dåligt resultat
+    bing_max = 0  #inget atm för vi fick ganska dåligt resultat
 
     #Mappar för att spara bilder
     base_download_folder = "downloaded_images"
