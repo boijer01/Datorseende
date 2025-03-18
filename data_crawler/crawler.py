@@ -3,14 +3,12 @@ import cv2
 import numpy as np
 from icrawler.builtin import GoogleImageCrawler, BingImageCrawler
 
-#
-# KOM IHÅG MODELLERNA - de ska finnas placerade utanför skriptet på samma nivå
-#
+# KOM IHÅG MODELLERNA - de ska finnas placerade utanför skriptet på samma nivå #
 
 def download_images(query, google_max, bing_max, google_folder, bing_folder):
     """
     Laddar ner bilder från Google och Bing
-    Bilderna kommer att sparas skilt i olika mappar (bing och google)
+    Bilderna kommer att sparas skilt i olika mappar (google och bing)
     """
     #Starta en crawler för Google och hämta bilder
     google_crawler = GoogleImageCrawler(storage={'root_dir': google_folder})
@@ -23,15 +21,15 @@ def download_images(query, google_max, bing_max, google_folder, bing_folder):
 def detect_person(image_path, net, confidence_threshold=0.5):
     """
     Använder MobileNetSSD för att identifiera personer i en bild
-    returnerar bounding box (startX, startY, endX, endY) för den största detekterade personen.
-    om ingen person hittas returneras none
+    Returnerar bounding box (startX, startY, endX, endY) för den största detekterade personen
+    Om ingen person hittas returneras None
     """
     #Läs in bilden
     image = cv2.imread(image_path)
     if image is None:
         print(f"Kunde inte läsa bilden: {image_path}")
         return None
-    
+
     (h, w) = image.shape[:2]  #Hämtar bildens höjd och bredd
 
     #Förbered bilden för nätverket (konverterar till blob)
@@ -65,13 +63,13 @@ def crop_image(image_path, box, save_path):
         return
 
     (startX, startY, endX, endY) = box
-    cropped = image[startY:endY, startX:endX]  # Beskär bilden
-    cv2.imwrite(save_path, cropped)  # Spara beskuren bild
+    cropped = image[startY:endY, startX:endX]  #Beskär bilden
+    cv2.imwrite(save_path, cropped)  #Spara beskuren bild
     print(f"Beskarad bild sparad: {save_path}")
 
 def collect_image_paths(folder):
     """
-    Samlar alla bildfiler från en angiven mapp och returnerar deras sökvägar.
+    Samlar alla bildfiler från en angiven mapp och returnerar deras sökvägar
     """
     image_paths = []
     for root, _, files in os.walk(folder):
@@ -90,10 +88,9 @@ def main():
         "snowboard": "snowboard downhill"
     }
 
-    #hur många bilder den ska crawla
-    
+    #Hur många bilder som ska crawlas
     google_max = 100 
-    bing_max = 0  #inget atm för vi fick ganska dåligt resultat
+    bing_max = 0  #Inget från Bing atm då vi fick ganska dåligt resultat
 
     #Mappar för att spara bilder
     base_download_folder = "downloaded_images"
@@ -104,8 +101,8 @@ def main():
     os.makedirs(base_cropped_folder, exist_ok=True)
 
     #Kontrollera att modellfilerna finns
-    prototxt = "MobileNetSSD_deploy.prototxt"
-    model = "MobileNetSSD_deploy.caffemodel"
+    prototxt = "./MobileNetSSD_deploy.prototxt"
+    model = "./MobileNetSSD_deploy.caffemodel"
     
     if not os.path.exists(prototxt) or not os.path.exists(model):
         print("Modellfiler saknas! Ladda ner MobileNetSSD_deploy.prototxt och MobileNetSSD_deploy.caffemodel och placera dem i samma mapp.")
@@ -114,3 +111,16 @@ def main():
     #Ladda in MobileNetSSD-modellen
     net = cv2.dnn.readNetFromCaffe(prototxt, model)
 
+    #Ladda ner bilder för varje kategori
+    for category, query in categories.items():
+        #Skapa specifika mappar för varje kategori
+        google_folder = os.path.join(base_download_folder, category, "google")
+        bing_folder = os.path.join(base_download_folder, category, "bing")
+        os.makedirs(google_folder, exist_ok=True)
+        os.makedirs(bing_folder, exist_ok=True)
+        
+        #Anropa funktionen för att ladda ner bilder
+        download_images(query, google_max, bing_max, google_folder, bing_folder)
+
+if __name__ == "__main__":
+    main()
