@@ -26,7 +26,7 @@ while cap.isOpened():
         # Bounding box coordinates and confidence score from detection
         x1, y1, x2, y2, conf, cls = detection
 
-        # Convertion to integers
+        # Convertion
         x1, y1, x2, y2 = map(int, [x1, y1, x2, y2])
 
         # Crop detected object from the frame
@@ -36,11 +36,11 @@ while cap.isOpened():
             continue
 
         # Process cropped image for classification model
-        cropped_img_resized = cv2.resize(cropped_img, (224, 224)) / 255.0
-        cropped_img_resized = np.expand_dims(cropped_img_resized, axis=0)
+        cropped_img = cv2.resize(cropped_img, (224, 224)) / 255.0
+        cropped_img = np.expand_dims(cropped_img, axis=0)
 
         # Predicts Snowboarder or Skier
-        preds = classifier.predict(cropped_img_resized, verbose=0)
+        preds = classifier.predict(cropped_img, verbose=0)
         class_idx = np.argmax(preds)
         label = class_labels[class_idx]
         color = (255, 0, 0) if label == 'snowboarder' else (0, 0, 255)

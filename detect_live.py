@@ -37,10 +37,10 @@ while cap.isOpened():
         if cropped_img.size == 0:
             continue
 
-        cropped_img_resized = cv2.resize(cropped_img, (224, 224)) / 255.0
-        cropped_img_resized = np.expand_dims(cropped_img_resized, axis=0)
+        cropped_img = cv2.resize(cropped_img, (224, 224)) / 255.0
+        cropped_img = np.expand_dims(cropped_img, axis=0)
 
-        preds = classifier.predict(cropped_img_resized, verbose=0)
+        preds = classifier.predict(cropped_img, verbose=0)
         class_labels = ['skier', 'snowboarder']
         label = class_labels[np.argmax(preds)]
         color = (255, 0, 0) if label == 'snowboarder' else (0, 0, 255)
